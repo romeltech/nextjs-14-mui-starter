@@ -11,7 +11,6 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -43,7 +42,7 @@ export default function AccountMenu() {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{
+        Paper={{
           elevation: 0,
           sx: {
             overflow: "visible",
@@ -73,10 +72,10 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar sx={{ width: 32, height: 32, mr: 1 }} /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <Avatar sx={{ width: 32, height: 32, mr: 1 }} /> My account
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
