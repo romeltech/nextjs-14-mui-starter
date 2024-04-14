@@ -5,15 +5,21 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme/theme';
 // import AppBar from './components/ui/AppBar';
-import { Box, Container, Grid, IconButton, Toolbar, Typography, Divider, List } from '@mui/material';
+import {
+  Box, Container, Grid, IconButton, Toolbar, Typography, Divider, List,
+  ListItemButton, ListItemIcon, ListItemText
+} from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { mainListItems, secondaryListItems } from './components/ui/nav/ListItems.jsx';
+import Image from 'next/image'
 
+import AccountMenu from './components/ui/nav/AccountMenu.jsx';
 
 const drawerWidth = 240;
 
@@ -67,6 +73,7 @@ export default function RootLayout(props) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const appName = 'RomelTech';
 
   return (
     <html lang="en">
@@ -76,7 +83,7 @@ export default function RootLayout(props) {
             <Box sx={{ display: 'flex' }}>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
               <CssBaseline />
-
+              {/* 
               <AppBar>
                 <Toolbar
                   sx={{
@@ -110,27 +117,26 @@ export default function RootLayout(props) {
                     </Badge>
                   </IconButton>
                 </Toolbar>
-
-              </AppBar>
-
+              </AppBar> */}
               <Drawer variant="permanent" open={open}>
-                <Toolbar
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    px: [1],
-                  }}
-                >
-                  <IconButton onClick={toggleDrawer}>
-                    <ChevronLeftIcon />
-                  </IconButton>
-                </Toolbar>
-                <Divider />
+                <List component="nav">
+                  <ListItemButton onClick={toggleDrawer}>
+                    <Image src='/next.svg' width={open == true ? 125 : 40} height={40} alt="Logo" style={{ marginLeft: 'auto', marginRight: 'auto' }} />
+                  </ListItemButton>
+                </List>
                 <List component="nav">
                   {mainListItems}
-                  <Divider sx={{ my: 1 }} />
-                  {secondaryListItems}
+                  {/* <Divider sx={{ my: 1 }} />
+                  {secondaryListItems} */}
+                </List>
+                <Divider sx={{ mt: 'auto' }} />
+                <List component="nav">
+                  <ListItemButton onClick={toggleDrawer}>
+                    <ListItemIcon>
+                      {open == true ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary="Collapse" />
+                  </ListItemButton>
                 </List>
               </Drawer>
               <Box
@@ -145,7 +151,39 @@ export default function RootLayout(props) {
                   overflow: 'auto',
                 }}
               >
-                <Toolbar />
+                <Toolbar
+                  sx={{
+                    pr: '24px', // keep right padding when drawer closed
+                  }}
+                >
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={toggleDrawer}
+                    sx={{
+                      marginRight: '36px',
+                      ...(open && { display: 'none' }),
+                    }}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    color="inherit"
+                    noWrap
+                    sx={{ flexGrow: 1 }}
+                  >
+                    {appName}
+                  </Typography>
+                  <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                  <AccountMenu />
+                </Toolbar>
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                   <Grid container spacing={3}>
                     {props.children}
