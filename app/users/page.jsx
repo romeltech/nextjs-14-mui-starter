@@ -9,8 +9,11 @@ import {
   Grid,
   Box,
   Fab,
+  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { fetchUsers } from "../../actions/UserActions";
 import * as NextLink from "next/link";
 
@@ -30,7 +33,7 @@ const UsersPage = async ({ searchParams }) => {
         >
           <AddIcon />
         </Fab>
-        <h3>Users Page</h3>
+        <h3>Users</h3>
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -55,7 +58,19 @@ const UsersPage = async ({ searchParams }) => {
                 </TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.role}</TableCell>
-                <TableCell align="right">{row._id.toString()}</TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    component={NextLink}
+                    href={`/users/${row.id}`}
+                    color="primary"
+                    size="small"
+                  >
+                    <EditIcon fontSize="inherit" />
+                  </IconButton>
+                  <IconButton color="primary" size="small">
+                    <DeleteIcon fontSize="inherit" />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

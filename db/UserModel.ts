@@ -18,6 +18,10 @@ const schema: mongoose.Schema = new mongoose.Schema(
       type: String, // admin, normal
       required: true,
     },
+    status: {
+      type: Boolean, // true, false
+      required: true,
+    },
     password: {
       type: String,
       required: true,

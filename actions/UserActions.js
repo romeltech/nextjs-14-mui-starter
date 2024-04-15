@@ -35,20 +35,17 @@ export const addUser = async (formData) => {
 };
 
 export const updateUser = async (formData) => {
-  const { id, username, email, password, phone, address, isAdmin, isActive } =
+  const { id, fullname, username, email, password, role } =
     Object.fromEntries(formData);
-
   try {
     connectToDB();
 
     const updateFields = {
+      fullname,
       username,
       email,
+      role,
       password,
-      phone,
-      address,
-      isAdmin,
-      isActive,
     };
 
     Object.keys(updateFields).forEach(
@@ -95,5 +92,16 @@ export const fetchUsers = async (q, page) => {
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch users!");
+  }
+};
+
+export const fetchUser = async (id) => {
+  try {
+    connectToDB();
+    const user = await User.findById(id);
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch user!");
   }
 };
