@@ -26,11 +26,11 @@ const UsersPage = async ({ searchParams }) => {
           href="/users/add"
           size="small"
           color="primary"
-          sx={{ mr: 1, boxShadow: 5 }}
+          sx={{ mr: 1, boxShadow: 3 }}
         >
           <AddIcon />
         </Fab>
-        <h2>Users Page</h2>
+        <h3>Users Page</h3>
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,6 +39,7 @@ const UsersPage = async ({ searchParams }) => {
               <TableCell>Username</TableCell>
               <TableCell>Fullname</TableCell>
               <TableCell>Email</TableCell>
+              <TableCell>Role</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -48,11 +49,13 @@ const UsersPage = async ({ searchParams }) => {
                 key={row.username}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell>{row.username}</TableCell>
                 <TableCell component="th" scope="row">
                   {row.fullname}
                 </TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell align="right">{row._id}</TableCell>
+                <TableCell>{row.role}</TableCell>
+                <TableCell align="right">{row._id.toString()}</TableCell>
               </TableRow>
             ))}
           </TableBody>
