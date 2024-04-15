@@ -13,8 +13,6 @@ import Submit from "../../components/ui/buttons/Submit";
 import { addUser, updateUser } from "../../../actions/UserActions";
 
 const UserForm = ({ user, type }) => {
-  // const formData = data ? JSON.parse(data) : null;
-
   // form type
   const formType = type ? type : "add";
 
@@ -33,7 +31,7 @@ const UserForm = ({ user, type }) => {
         useFlexGap
         flexWrap="wrap"
       >
-        <input type="hidden" name="id" value={userData?._id.toString()} />
+        <input type="hidden" name="id" value={userData?._id?.toString()} />
         <TextField
           sx={{ width: "100%" }}
           id="fullname"
