@@ -29,8 +29,23 @@ const mainNavArray = [
 export const mainListItems = (
   <React.Fragment>
     {mainNavArray.map((item, index) => (
-      <ListItemButton component={NextLink} href={item.path} key={index}>
-        <ListItemIcon>
+      <ListItemButton
+        sx={{
+          minHeight: 48,
+          // justifyContent: open ? "initial" : "center",
+          px: 2.5,
+        }}
+        component={NextLink}
+        href={item.path}
+        key={index}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            // mr: open ? 3 : "auto",
+            justifyContent: "center",
+          }}
+        >
           <Icon>{item.icon}</Icon>
         </ListItemIcon>
         <ListItemText primary={item.title} />
