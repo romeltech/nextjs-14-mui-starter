@@ -22,7 +22,7 @@ const UsersPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const { count, users } = await fetchUsers(q, page);
   return (
-    <Grid sx={{ width: "100%" }}>
+    <Box sx={{ flexGrow: 1, px: 3 }}>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Fab
           component={NextLink}
@@ -76,7 +76,7 @@ const UsersPage = async ({ searchParams }) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Grid>
+    </Box>
   );
 };
 
