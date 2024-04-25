@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { User } from "../db/UserModel";
+import { Order } from "../db/OrderModel";
 import { connectToDB } from "../lib/utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
@@ -79,20 +80,20 @@ export const deleteUser = async (formData) => {
   revalidatePath("/dashboard/products");
 };
 
-export const fetchUsers = async (q, page) => {
+export const fetchOrders = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 10;
 
   try {
     connectToDB();
-    const count = await User.find({ username: { $regex: regex } }).count();
-    const users = await User.find({ username: { $regex: regex } })
+    const count = await Order.find({ order_id: { $regex: regex } }).count();
+    const orders = await Order.find({ order_id: { $regex: regex } })
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
-    return { count, users };
+    return { count, orders };
   } catch (err) {
-    console.log(err);
+    console.log(err.reponse);
     throw new Error("Failed to fetch users!");
   }
 };
