@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 
 export const addUser = async (formData) => {
-  const { fullname, username, email, password, role } =
+  const { fullname, username, email, password, role, status } =
     Object.fromEntries(formData);
 
   try {
@@ -22,6 +22,7 @@ export const addUser = async (formData) => {
       email,
       password: hashedPassword,
       role,
+      status,
     });
 
     await newUser.save();
@@ -35,7 +36,7 @@ export const addUser = async (formData) => {
 };
 
 export const updateUser = async (formData) => {
-  const { id, fullname, username, email, password, role } =
+  const { id, fullname, username, email, password, role, status } =
     Object.fromEntries(formData);
   try {
     connectToDB();
@@ -46,6 +47,7 @@ export const updateUser = async (formData) => {
       email,
       role,
       password,
+      status
     };
 
     Object.keys(updateFields).forEach(

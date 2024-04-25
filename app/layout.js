@@ -96,13 +96,15 @@ const mainNavArray = [
   },
 ];
 
+const appName = process.env.APP_NAME
+  ? process.env.APP_NAME
+  : "Grandiose Order Dashboard";
+
 export default function RootLayout(props) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const appName = "RomelTech";
-
   return (
     <html lang="en">
       <body>

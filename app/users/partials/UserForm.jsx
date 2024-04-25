@@ -23,6 +23,10 @@ const UserForm = ({ user, type }) => {
   const rolesList = ["admin", "normal"];
   const [role, setRole] = useState(userData?.role || "normal");
 
+  // roles
+  const statusList = ["active", "inactive"];
+  const [status, setStatus] = useState(userData?.status || "active");
+
   return (
     <form action={formType === "add" ? addUser : updateUser}>
       <Stack
@@ -32,6 +36,28 @@ const UserForm = ({ user, type }) => {
         flexWrap="wrap"
       >
         <input type="hidden" name="id" value={userData?._id?.toString()} />
+        <FormControl sx={{ m: 0, width: "100%" }}>
+          <InputLabel id="status">Status</InputLabel>
+          <Select
+            labelId="status"
+            id="status"
+            sx={{ width: "100%" }}
+            name="status"
+            value={status}
+            label="Status"
+            onChange={(e) => {
+              setStatus(e.target.value);
+              setUserData((prev) => ({ ...prev, status: e.target.value }));
+            }}
+          >
+            {statusList.map((status) => (
+              <MenuItem key={status} value={status}>
+                {status}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <TextField
           sx={{ width: "100%" }}
           id="fullname"

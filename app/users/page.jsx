@@ -6,7 +6,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Grid,
   Box,
   Fab,
   IconButton,
@@ -43,6 +42,7 @@ const UsersPage = async ({ searchParams }) => {
               <TableCell>Fullname</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Role</TableCell>
+              <TableCell>Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -58,6 +58,7 @@ const UsersPage = async ({ searchParams }) => {
                 </TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.role}</TableCell>
+                <TableCell>{row.status}</TableCell>
                 <TableCell align="right">
                   <IconButton
                     component={NextLink}

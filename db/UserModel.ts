@@ -19,7 +19,7 @@ const schema: mongoose.Schema = new mongoose.Schema(
       required: true,
     },
     status: {
-      type: Boolean, // true, false
+      type: String, // active, inactive
       required: true,
     },
     password: {
