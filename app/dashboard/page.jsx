@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   TableBody,
@@ -16,10 +17,25 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { fetchOrders } from "../../actions/OrderActions";
 import * as NextLink from "next/link";
 import DashboardFilter from "./partials/DashboardFilter";
-const Dashboard = async ({ searchParams }) => {
+import { use, useEffect } from "react";
+
+const Dashboard = ({ searchParams }) => {
+  // params
   const q = searchParams?.q || "";
+  const filter = searchParams?.filter || "";
   const page = searchParams?.page || 1;
-  const { count, orders } = await fetchOrders(q, page);
+  // console.log("filter", filter);
+
+  useEffect(() => {
+    console.log("searchParams", searchParams);
+  }, [searchParams]);
+
+  // get orders
+  async function getOrders(q, page) {
+    return await fetchOrders(q, page);
+  }
+
+  const { count, orders } = getOrders(q, page);
   return (
     <Box sx={{ flexGrow: 1, px: 3 }}>
       <Box sx={{ flexGrow: 1, mb: 1 }}>
@@ -30,8 +46,12 @@ const Dashboard = async ({ searchParams }) => {
             justifyContent: "space-between",
           }}
         >
+          {/* <h3>Dashboard {filterValue && ` - ${filterValue}`}</h3> */}
           <h3>Dashboard</h3>
-          <DashboardFilter />
+          <DashboardFilter
+          // filterValue={filterValue}
+          // setFilterValue={setFilterValue}
+          />
         </Box>
       </Box>
       <TableContainer component={Paper}>
@@ -46,14 +66,15 @@ const Dashboard = async ({ searchParams }) => {
               <TableCell align="right">Actions</TableCell> */}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {orders.map((row) => (
-              <TableRow
-                key={row.order_id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>{row.order_id}</TableCell>
-                {/* <TableCell component="th" scope="row">
+          {orders && (
+            <TableBody>
+              {orders.map((row) => (
+                <TableRow
+                  key={row.order_id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>{row.order_id}</TableCell>
+                  {/* <TableCell component="th" scope="row">
                   {row.fullname}
                 </TableCell>
                 <TableCell>{row.email}</TableCell>
@@ -72,9 +93,10 @@ const Dashboard = async ({ searchParams }) => {
                     <DeleteIcon fontSize="inherit" />
                   </IconButton>
                 </TableCell> */}
-              </TableRow>
-            ))}
-          </TableBody>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
       </TableContainer>
     </Box>
