@@ -2,12 +2,9 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-
 const DashboardFilter = (props) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const router = useRouter()
   const pathname = usePathname();
   const page = searchParams.get("page") || 1;
 
@@ -18,12 +15,12 @@ const DashboardFilter = (props) => {
   const dashboardItems = [
     {
       title: "New Orders",
-      param: "new-orders",
+      param: "new-order",
       path: "/dashboard",
     },
     {
       title: "Assigned Orders",
-      param: "assigned-orders",
+      param: "assigned-order",
       path: "/dashboard/assigned",
     },
     {
@@ -64,18 +61,11 @@ const DashboardFilter = (props) => {
   ];
 
 
-  // const changeFilter = (e, v) => {
-  //   const selectedFilter = dashboardItems.find((item) => item.title === v);
-  //   params.set("filter", selectedFilter?.param || "");
-  //   replace(`${pathname}?${params}`);
-  // };
-
   const changeFilter = (e, v) => {
     const selectedFilter = dashboardItems.find((item) => item.title === v);
-    router.push(`/dashboard/${selectedFilter?.param || ""}`)
+    params.set("filter", selectedFilter?.param || "");
+    replace(`${pathname}?${params}`);
   };
-
-
   return (
     <Autocomplete
       id="combo-box-demo"
@@ -91,7 +81,7 @@ const DashboardFilter = (props) => {
       // inputValue={props.filterValue}
       // inputValue={inputValue}
       // onInputChange={props.setFilterValue}
-      // onInputChange={changeFilter}
+      onInputChange={changeFilter}
       // onInputChange={(event, newInputValue) => {
       //   console.log("newInputValue", newInputValue);
       //   setInputValue(newInputValue);

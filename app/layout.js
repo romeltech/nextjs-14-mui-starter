@@ -151,7 +151,7 @@ export default function RootLayout(props) {
                 <List component="nav">
                   <ListItemButton onClick={toggleDrawer}>
                     <Image
-                      src="/next.svg"
+                      src={`${open == true ? '/grandiose-logo-primary.svg' : '/grandiose-icon-primary.svg'}`}
                       width={open == true ? 125 : 40}
                       height={40}
                       alt="Logo"

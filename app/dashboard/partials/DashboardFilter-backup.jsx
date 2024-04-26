@@ -2,15 +2,13 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-
 const DashboardFilter = (props) => {
+  console.log("props", props);
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const router = useRouter()
   const pathname = usePathname();
   const page = searchParams.get("page") || 1;
-
+  
   const params = new URLSearchParams(searchParams);
   const ITEM_PER_PAGE = 2;
 
@@ -18,64 +16,57 @@ const DashboardFilter = (props) => {
   const dashboardItems = [
     {
       title: "New Orders",
-      param: "new-orders",
       path: "/dashboard",
     },
     {
       title: "Assigned Orders",
-      param: "assigned-orders",
       path: "/dashboard/assigned",
     },
     {
       title: "Picking in Progress",
-      param: "picking-in-progress",
       path: "/dashboard/picking",
     },
     {
       title: "In Substitution",
-      param: "in-substitution",
       path: "/dashboard/in-substitution",
     },
     {
       title: "Picking Completed",
-      param: "picking-completed",
       path: "/dashboard/completed",
     },
     {
       title: "Waiting For Driver",
-      param: "waiting-for-driver",
       path: "/dashboard/completed",
     },
     {
       title: "Picked up",
-      param: "picked-up",
       path: "/dashboard/picked-up",
     },
     {
       title: "Out For Delivery",
-      param: "out-for-delivery",
       path: "/dashboard/out-for-delivery",
     },
     {
       title: "Delivered",
-      param: "delivered",
       path: "/dashboard/delivered",
     },
   ];
 
+  // const [value, setValue] = useState(dashboardItems[0].title);
+  // const [inputValue, setInputValue] = useState("");
 
-  // const changeFilter = (e, v) => {
-  //   const selectedFilter = dashboardItems.find((item) => item.title === v);
-  //   params.set("filter", selectedFilter?.param || "");
-  //   replace(`${pathname}?${params}`);
-  // };
-
-  const changeFilter = (e, v) => {
-    const selectedFilter = dashboardItems.find((item) => item.title === v);
-    router.push(`/dashboard/${selectedFilter?.param || ""}`)
+  const handleChangePage = (type) => {
+    type === "prev"
+      ? params.set("page", parseInt(page) - 1)
+      : params.set("page", parseInt(page) + 1);
+    replace(`${pathname}?${params}`);
   };
 
-
+  const changeFilter = async (e) => {
+    console.log("changeFilter", e.target.value);
+    setValue(e.target.value);
+    setInputValue(e.target.value);
+  };
   return (
     <Autocomplete
       id="combo-box-demo"
@@ -87,10 +78,10 @@ const DashboardFilter = (props) => {
       //   setValue(newValue);
       //   setInputValue(newValue);
       // }}
-      onChange={changeFilter}
+      // onChange={props.handleChange}
       // inputValue={props.filterValue}
       // inputValue={inputValue}
-      // onInputChange={props.setFilterValue}
+      onInputChange={props.setFilterValue}
       // onInputChange={changeFilter}
       // onInputChange={(event, newInputValue) => {
       //   console.log("newInputValue", newInputValue);
